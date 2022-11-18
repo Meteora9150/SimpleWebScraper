@@ -1,0 +1,107 @@
+// Java library
+plugins { 
+    id 'java-library'
+}
+
+plugins {
+ id 'maven-publish'
+}
+
+plugins {
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+}
+
+
+// Package default
+archivesBaseName = 'google-search-results-java'
+version = '2.0.3'
+group = 'com.github.serpapi'
+
+// java version 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// Load repositories
+repositories {
+    // jcenter()
+    mavenCentral()
+}
+
+// compileTestJava {
+//     options.encoding = 'UTF-8'
+//     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+// }
+
+def javaFXModules = [
+        "base",
+        "controls",
+        "fxml",
+        "swing",
+        "graphics"
+]
+
+def supportedPlatforms = ["linux", "mac", "win"]
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation 'org.jsoup:jsoup:1.15.3'
+
+    for (platform in supportedPlatforms) {
+        for (module in javaFXModules) {
+            implementation("org.openjfx:javafx-$module:13:$platform")
+        }
+    }
+    
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.3'
+
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:3.6.28'
+
+    // javadoc markdown support doesn't work with modern java and gradle.
+}
+
+// jar file content
+tasks.named('jar') {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                   'Implementation-Version': project.version)
+    }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+// To specify a license in the pom:
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            pom {
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://github.com/serpapi/google-search-results-java/blob/master/LICENSE'
+                    }
+                }
+            }
+        }
+    }
+}
+
+wrapper {
+    gradleVersion = "7.3.3"
+    distributionType = Wrapper.DistributionType.ALL
+}

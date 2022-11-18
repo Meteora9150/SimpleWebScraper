@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="mainScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="653.0" prefWidth="974.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainScreenController">
+   <children>
+      <TextArea fx:id="mainArg" layoutX="31.0" layoutY="62.0" prefHeight="78.0" prefWidth="481.0" promptText="Do not leave it blank otherwise it won't work">
+      	 <font>
+            <Font size="22.0" />
+         </font></TextArea>
+      <TextArea fx:id="addParam" layoutX="31.0" layoutY="222.0" prefHeight="86.0" prefWidth="481.0" promptText="Press add to send parameters">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextArea>
+      <Label alignment="CENTER" graphicTextGap="6.0" layoutX="31.0" layoutY="14.0" prefHeight="40.0" prefWidth="481.0" text="Insert main search parameters">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="31.0" layoutY="174.0" prefHeight="40.0" prefWidth="481.0" text="Insert additional search parameter inside text">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="addAdditonalParam" layoutX="31.0" layoutY="327.0" mnemonicParsing="false" onMouseClicked="#addAdditionalParams" prefHeight="44.0" prefWidth="87.0" text="Add">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Button>
+      <!-- <CheckBox id="containsMainArg" layoutX="31.0" layoutY="419.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="250.0" text="Cotains Main Argument ?" />
+      <CheckBox id="searchOnlyPDF" layoutX="31.0" layoutY="485.0" mnemonicParsing="false" prefHeight="55.0" prefWidth="240.0" text="Search ONLY PDF ?" />
+      <ProgressBar layoutX="31.0" layoutY="576.0" prefHeight="27.0" prefWidth="528.0" progress="0.0" />
+      -->
+      <TextArea fx:id="showAdditionalParams" layoutX="538.0" layoutY="54.0" prefHeight="304.0" prefWidth="386.0" />
+      <!-- <TableView layoutX="610.0" layoutY="63.0" prefHeight="302.0" prefWidth="327.0">
+        <columns>
+          <TableColumn fx:id="tableAdditionalParams" prefWidth="326.0" text="Additional parameters inserted" />
+        </columns>
+      </TableView>
+      -->
+       <!-- <Label alignment="CENTER" layoutX="602.0" layoutY="45.0" prefHeight="44.0" prefWidth="335.0" text="Additional parameters inserted">
+        <font>
+            <Font size="20.0" />
+         </font>
+      </Label> -->
+      <Button id="NEXT" layoutX="747.0" layoutY="532.0" mnemonicParsing="false" onMouseClicked="#NEXT" prefHeight="71.0" prefWidth="190.0" text="NEXT" />
+      <Slider fx:id="articlesToSearch" blockIncrement="5.0" layoutX="31.0" layoutY="476.0" max="300.0" min="1.0" onKeyPressed="#ToSearch" onMouseReleased="#ToSearch" prefHeight="21.0" prefWidth="605.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" />
+      <Slider fx:id="articlesToSave" blockIncrement="1.0" layoutX="31.0" layoutY="568.0" min="1.0" onKeyPressed="#ToSave" onMouseReleased="#ToSave" prefHeight="21.0" prefWidth="605.0" showTickLabels="true" showTickMarks="true" value="1.0" />
+      <Label alignment="CENTER" layoutX="31.0" layoutY="436.0" prefHeight="27.0" prefWidth="481.0" text="How many articles to search?" />
+      <Label alignment="CENTER" layoutX="31.0" layoutY="535.0" prefHeight="27.0" prefWidth="469.0" text="How many articles to save?" />
+	  <Label fx:id="counterMaxArticles" layoutX="666.0" layoutY="463.0" text="1" />  
+	  <Label fx:id="counterSaveArticles" layoutX="666.0" layoutY="549.0" text="1" />
+      <Button id="SaveAddParam" layoutX="842.0" layoutY="371.0" mnemonicParsing="false" onMouseClicked="#SaveAdditionalParams" prefHeight="39.0" prefWidth="79.0" text="Save" />
+      <Button id="LoadAddParam" layoutX="842.0" layoutY="417.0" mnemonicParsing="false" onMouseClicked="#LoadAdditionalParams" prefHeight="39.0" prefWidth="79.0" text="Load" />
+      <TextField fx:id="AddParamsNameFile" layoutX="539.0" layoutY="371.0" prefHeight="39.0" prefWidth="280.0" promptText="Name file for add params (extra)" />   
+   </children>
+</Pane>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane fx:id="SecondScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="454.0" prefWidth="795.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SecondScreenController">
+   <children>
+      <CheckBox fx:id="MainParamNOTinText" layoutX="50.0" layoutY="70.0" mnemonicParsing="false" text="Main Parameter NOT in text search ?" />
+      <CheckBox fx:id="SearchOnlyPDF" layoutX="50.0" layoutY="115.0" mnemonicParsing="false" text="Searching only PDF ?" />
+      <Button fx:id="ExecuteButton" layoutX="614.0" layoutY="315.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="153.0" onMouseClicked="#ExecuteButton" text="Execute">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button id="BrowseForSaveFile" layoutX="478.0" layoutY="263.0" mnemonicParsing="false" onMouseClicked="#selectDirecory" text="Browse"  />
+      <TextField fx:id="DirecorySaveFile" layoutX="47.0" layoutY="263.0" prefHeight="39.0" prefWidth="419.0" />
+      <TextField fx:id="RenameReultFile" layoutX="47.0" layoutY="324.0" prefHeight="39.0" prefWidth="377.0" promptText="Rename file, Default is &quot; Result &quot;" />
+     
+     <HBox alignment="CENTER" layoutX="36.0" layoutY="213.0" prefHeight="39.0" prefWidth="534.0">
+         <children>
+            <RadioButton id="Radio1Chrome" mnemonicParsing="false" selected="true" text="Chrome   " >
+               <toggleGroup>
+                  <ToggleGroup fx:id="Group1" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton id="Radio2Yahoo" mnemonicParsing="false" text="Yahoo    " toggleGroup="$Group1" />
+            <RadioButton id="Radio3FireFox" mnemonicParsing="false" text="Firefox    " toggleGroup="$Group1" />
+            <RadioButton id="Radio4Scholar" mnemonicParsing="false" text="Google Scholar" toggleGroup="$Group1" />
+         </children>
+      </HBox>
+      <Label alignment="CENTER" layoutX="50.0" layoutY="170.0" prefHeight="27.0" prefWidth="624.0" text="Select the main Browser for this research" />
+      <Label alignment="CENTER" layoutX="47.0" layoutY="31.0" prefHeight="27.0" prefWidth="313.0" text="Additional options for research" />
+      <Label layoutX="466.0" layoutY="45.0" prefHeight="98.0" prefWidth="251.0" text="WARNING: If both are selected then there could be no results in Result.txt" wrapText="true" />
+   </children>
+</Pane>
