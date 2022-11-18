@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -41,6 +42,12 @@ public class SecondScreenController {
 	
 	@FXML
 	private Button ExecuteButton;
+	
+	@FXML
+	private Label afterExecuteLabelForInfo;
+	
+	@FXML
+	private Label ResearchesDone;
 	
 	boolean NotInText=false;
 	boolean OnlyPDF=false;
@@ -79,6 +86,9 @@ public class SecondScreenController {
 		}
 		*/
 		ExecuteButton.setDisable(true);
+		
+		//afterExecuteLabelForInfo.setText("Please wait for the application to end do not close it\n otherwise the results will not be saved");
+		
 		
 		String Filename=RenameReultFile.getText();
 		//System.out.println("filename in second controller is"+Filename+" leng : "+Filename.length()+" is empty ? "+Filename.isEmpty());
