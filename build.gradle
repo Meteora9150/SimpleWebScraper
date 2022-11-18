@@ -13,9 +13,8 @@ plugins {
 
 
 // Package default
-archivesBaseName = 'google-search-results-java'
+archivesBaseName = 'SimpleWebScraper-main'
 version = '2.0.3'
-group = 'com.github.serpapi'
 
 // java version 
 sourceCompatibility = 1.8
@@ -83,22 +82,6 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 artifacts {
     archives sourcesJar
     archives javadocJar
-}
-
-// To specify a license in the pom:
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            pom {
-                licenses {
-                    license {
-                        name = 'MIT License'
-                        url = 'https://github.com/serpapi/google-search-results-java/blob/master/LICENSE'
-                    }
-                }
-            }
-        }
-    }
 }
 
 wrapper {
