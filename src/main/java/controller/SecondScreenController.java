@@ -38,6 +38,9 @@ public class SecondScreenController {
 	private CheckBox SearchOnlyPDF;		
 	
 	@FXML
+	private CheckBox downloadPDF;
+	
+	@FXML
 	private ToggleGroup Group1;
 	
 	@FXML
@@ -51,6 +54,9 @@ public class SecondScreenController {
 	
 	boolean NotInText=false;
 	boolean OnlyPDF=false;
+	boolean GetPDF=false;
+	
+	
 	
 	//OnlineSearcher OS= new MainScreenController().showOS();
 	
@@ -66,7 +72,9 @@ public class SecondScreenController {
 		if(SearchOnlyPDF.isSelected()) {
 			OnlyPDF=true;
 		}
-		
+		if(downloadPDF.isSelected()) {
+			GetPDF=true;
+		}
 		
 		//String browser="Chrome";
 		/*
@@ -99,7 +107,7 @@ public class SecondScreenController {
 		
 		//selectDirecory();
 		
-		Searcher.saveSecondBatch(OnlyPDF, NotInText, selectBrowser);
+		Searcher.saveSecondBatch(OnlyPDF, NotInText, selectBrowser, GetPDF);
 		Searcher.search();
 		
 		final Parent root;   
@@ -135,6 +143,14 @@ public class SecondScreenController {
         
         
         Searcher.SetPath(path);
+	}
+	
+	@FXML
+	public void enableDownloadPDF() {
+		if(downloadPDF.isSelected()) {
+			downloadPDF.setSelected(false);
+		}
+		downloadPDF.setDisable(!downloadPDF.isDisabled());
 	}
 
 }

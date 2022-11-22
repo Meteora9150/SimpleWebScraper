@@ -23,6 +23,7 @@ public class Searcher {
 	
 	static boolean onlyPDFSearch=false;
 	static boolean containsMainParam=false;
+	static boolean getPDF=false;
 	static String UA="Chrome";
 	
 	static boolean success1=false;
@@ -42,17 +43,22 @@ public class Searcher {
 		//System.out.println("Uscendo da Save First Batch");
 	}
 	
-	public static void saveSecondBatch(boolean onlyPDFSearch, boolean NotInText, String UA) {
+	public static void saveSecondBatch(boolean onlyPDFSearch, boolean NotInText, String UA, boolean getPDF) {
 		//System.out.println("Entrando in Save Second Batch");
 		SetOnlyPDFTerm(onlyPDFSearch);
 		SetscontainsParamTerm(NotInText);
 		SetUATerm(UA);
+		SetDownloadPDF(getPDF);
 		//System.out.println("Uscendo da Save Second Batch");
 		
 	}
 	
 	
 	
+	private static void SetDownloadPDF(boolean getPDF2) {
+		getPDF=getPDF2;
+	}
+
 	private static void SetUATerm(String UA2) {
 		UA=UA2;
 	}
@@ -185,6 +191,7 @@ public class Searcher {
 						}
 					}
 				
+					
 				
 					/*if(onlyPDFSearch) {
 						//System.out.println(" blocco 6");
@@ -234,8 +241,9 @@ public class Searcher {
 							if(start!=-1) {
 							CharSequence subseq= linkHref.subSequence(start, end);						
 							newLinkHref = newLinkHref.replace(subseq, "");
-							}
-					
+							}						
+							
+							
 					List<String> wordsFound=new ArrayList<>();		
 					try {	
 					Document addon = Jsoup
@@ -305,6 +313,12 @@ public class Searcher {
 		
 		String path=setFullPath(true);
 		
+		if(getPDF) {
+			String home = System.getProperty("user.home");
+			
+			String downloadPath=home+"\\Downloads\\SimpleWebScraperDownloadedPDF";
+			FileDownloader.download(downloadPath,articlelist,articleWithTitle,articleWithKeyword);
+		}
 		
 		FileManager.generateHTMLPage(s,path);
 		
