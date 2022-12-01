@@ -12,9 +12,15 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import controller.FileManager;
+import Utilities.FileDownloader;
+import Utilities.FileManager;
+import Utilities.NullValuedSearchParameters;
+import Utilities.Pair;
+import Utilities.ProgressUpdater;
+import Utilities.TextDivider;
 
-public class Searcher {
+
+public class Searcher implements Runnable {
 	
 	static String searchTerm="";
 	static List<String> additionalParams=new ArrayList<>(); 
@@ -34,8 +40,13 @@ public class Searcher {
 	
 	static boolean multipleMainParams=false;
 	
+	static String Browser="";
+	private static String result;
+	private static int max;
+	
 	public static void saveFirstBatch(String searchTerm, List<String> additionalParams, int research, int save) {
 		//System.out.println("Entrando in Save First Batch");
+		max = research;
 		SetSearchTerm(searchTerm);
 		SetadditionalParamsTerm(additionalParams);
 		SetresearchTerm(research);
@@ -50,15 +61,11 @@ public class Searcher {
 		SetUATerm(UA);
 		SetDownloadPDF(getPDF);
 		//System.out.println("Uscendo da Save Second Batch");
-		
 	}
-	
-	
-	
+
 	private static void SetDownloadPDF(boolean getPDF2) {
 		getPDF=getPDF2;
 	}
-
 	private static void SetUATerm(String UA2) {
 		UA=UA2;
 	}
@@ -67,18 +74,12 @@ public class Searcher {
 	}
 	private static void SetOnlyPDFTerm(boolean onlyPDFSearch2) {
 		onlyPDFSearch=onlyPDFSearch2;
-		/*if(onlyPDFSearch) {
-			SetresearchTerm(research*100);
-		}*/
 	}
-
-	
 	
 	public static void SetSearchTerm(String searchTerm2) {
 		if(searchTerm2.contains(" ")) {
 			List<String> arguments= TextDivider.textSplicing(searchTerm2);
 			searchTerm= TextDivider.queryAdapterOnline(arguments);
-			//System.out.println(" search term = "+searchTerm);
 			multipleMainParams=true;
 		}else {
 			searchTerm=searchTerm2;
@@ -96,78 +97,44 @@ public class Searcher {
 		save=save2;
 	}
 
-
-	public static void search() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+	public void search() throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		List<Pair<String,Integer>> articlelist = new ArrayList<>();
 		List<Pair<String,List<String>>> articleWithKeyword = new ArrayList<>();
 		List<Pair<String,String>> articleWithTitle = new ArrayList<>();
 		
-		boolean showparams = false;
-		if(showparams) {
-			System.out.println(" search term "+searchTerm);
-			System.out.println(" add term "+additionalParams);
-			System.out.println(" research term "+research);
-			System.out.println(" save term "+save);
-			System.out.println(" onlyPDFSearch term "+onlyPDFSearch);
-			System.out.println(" containsMainParam term "+containsMainParam);
-			System.out.println(" UA term "+UA);
+		if(UA.contains("Chrome")){
+			System.out.println("1");
+			Browser="http://www.google.com/search?q="+searchTerm+"&num="+research+2;
+		}else if(UA.contains("Firefox")){
+			Browser="http://www.google.com/search?q="+searchTerm+"&num="+research+2;
+		}else if(UA.contains("Yahoo")){
+			Browser="http://www.google.com/search?q="+searchTerm+"&num="+research+2;
+		}else if(UA.contains("Google Scholar")){
+			Browser="https://scholar.google.com/scholar?q="+searchTerm+"&num="+research+2;
 		}
-		
-		
-		
+
 		// versione x chrome funzionante
 		Document document = Jsoup
-		        .connect("http://www.google.com/search?q=" + searchTerm+ "&num="+research+2) 
+		        //.connect("http://www.google.com/search?q=" + searchTerm+ "&num="+research+2) 
+				.connect(Browser) 
 		        .userAgent(UA)
 		        .get();
 		
 		int counter=1;
 		int n=0;
 		int valuePoints=0;
-		int valuePointsInTitle=0;
+		int valuePointsInTitle=0;;
 		
-		//System.out.println(" blocco 1");
-		
-		// generic document scraper for test purposes saved in the project folder
-		
-		
+		// generic document scraper for test purposes saved in the project folder	
 		FileManager.writeOnFile("Document Scraping .txt", document.toString());
-		
-		//writeFile("Document Scraping .txt",document.toString());
-		//document.select("span").attr("class").contains("MUxGbd wuQ4Ob WZ8Tjf");
-		
-		
-		/*
-		document.forEach(article->{
-			
-			//System.out.println("blocco AA");
-			Elements qq = article.select("span");
-			
-			//System.out.println("blocco BB");
-			
-			if(qq.hasClass("r0bn4c rQMQod")) {
-				//System.out.println("blocco CC");
-				System.out.println("FuCK YEAH BOIIII");
-			}else {
-				//System.out.println("blocco DD");
-				// SHIT
-			}
-			
-			//System.out.println("blocco EE");
-			System.out.println(" variable qq = "+qq);
-		});
-		*/
-		
+				
 		for( Element elem:document.select("a")) {
 			
 			String linkHref = elem.attr("href"); // i vari link https://...
 			String linkText = elem.text(); // i titoli dei link https://...
 	
-			//System.out.println(" blocco 2 N="+n);
-			
-			if(!linkHref.toLowerCase().contains("https") ||linkHref.toLowerCase().contains("amazon") ||  linkHref.toLowerCase().contains("search?q")) {
-				//System.out.println("articolo saltato");
-				//System.out.println(" blocco 3");
+			if(!linkHref.toLowerCase().contains("https") ||linkHref.toLowerCase().contains("amazon") ||  linkHref.toLowerCase().contains("search?q") ||  linkHref.toLowerCase().contains("youtube")) {
+				// ignore article
 			}
 			else {
 			if( (n>15) && research>0) {
@@ -175,63 +142,34 @@ public class Searcher {
 				success1=false;
 				success2=false;
 				
-				//System.out.println(" blocco 4");
-				System.out.println("research value before decrementation ="+research);
-				research--;
-				
-				System.out.println("research value after decrementation ="+research);
-					//System.out.println(" blocco 5");
-				
+				//System.out.println("research value before decrementation ="+research);
+				research--;	
+				//System.out.println("research value after decrementation ="+research);
 					if(!onlyPDFSearch) {
 						success1=true;
 					}else {
 						if(linkText.toLowerCase().contains("pdf") || linkHref.toLowerCase().contains(".pdf")) {
 							success1=true;
-							System.out.println("ho trovato un pdf per te "+success1);
 						}
 					}
-				
-					
-				
-					/*if(onlyPDFSearch) {
-						//System.out.println(" blocco 6");
-						if(linkText.toLowerCase().contains("pdf") || linkHref.toLowerCase().contains(".pdf")) {
-							//System.out.println("ho trovato un pdf per te "+success1);			
-							//System.out.println(" blocco 6.1");
-							success1=true;
-						}
-						else {
-							//System.out.println(" blocco 6.2 "+success1);
-							//research++;
-						}
-					}else {
-						success1=true;
-						//System.out.println(" only PDf Search is set to "+onlyPDFSearch);
-					}*/
-				
 					if(!multipleMainParams) {
 						singleSearchParam(linkText);
 					}else {
 						multipleSearchParam(linkText);
 					}
-					
-					/*
-					if(!success2) {
-						research++;
-					}
-					*/
-					
-					//boolean skip = containsMainParam || onlyPDFSearch;
+
 					boolean toCheck = success1 && success2 ;
 					if(!toCheck) {
 						research++;
 					}
-					//System.out.println(" blocco 8 ( tocheck= "+toCheck+ " )");
 					
-					if(toCheck) {
-						//System.out.println(" blocco 9");				
+					if(toCheck) {			
 						System.out.println("N= " + counter +" Text::   " + linkText + ",   URL::    " + linkHref);						
-						System.out.println("-----------[ link N^ " + counter + " ]---------------------");					
+						System.out.println("-----------[ link N^ " + counter + " ]---------------------");	
+
+						int value = ((counter*100)/max);
+						ProgressUpdater.updateBarr(value);
+						
 						counter++;
 			
 							// replacer of strings //-----------------
@@ -242,7 +180,6 @@ public class Searcher {
 							CharSequence subseq= linkHref.subSequence(start, end);						
 							newLinkHref = newLinkHref.replace(subseq, "");
 							}						
-							
 							
 					List<String> wordsFound=new ArrayList<>();		
 					try {	
@@ -280,10 +217,7 @@ public class Searcher {
 					articlelist.add(new Pair<>(newLinkHref,valuePoints));
 					articleWithKeyword.add(new Pair<>(newLinkHref,wordsFound));
 					articleWithTitle.add(new Pair<>(newLinkHref,linkText));
-				
-					
-					
-					
+
 					System.out.println("------[ points scored = "+valuePoints+" Words Found = "+wordsFound+" ]-------------------");
 					valuePoints=0;
 					valuePointsInTitle=0;
@@ -292,47 +226,47 @@ public class Searcher {
 			n++;
 			}
 		}
-	
-		// da decommentare 
 		
 		orderArticles(articlelist);
 		List<String> s;
 		articlelist= selectTopN(articlelist,save);
 		
-		
+		System.out.println("article list BEST = "+articlelist);
+		System.out.println("-----------");
 		
 		s=printResults(articlelist,articleWithKeyword,articleWithTitle);
 		//writeToFile(s); // crea un txt solo se il nome del file non è quello base
 		
-		
+		result= FileManager.SimpleText(s);
 		
 		System.out.println(" --------------------------- ");
 		System.out.println(" THIS IS THE END !!");
 		
-		
+		if(ProgressUpdater.isStillOn()) {
+			ProgressUpdater.closewindow();
+		}
 		
 		String path=setFullPath(true);
 		
 		if(getPDF) {
 			String home = System.getProperty("user.home");
-			
 			String downloadPath=home+"\\Downloads\\SimpleWebScraperDownloadedPDF";
 			FileDownloader.download(downloadPath,articlelist,articleWithTitle,articleWithKeyword);
 		}
 		
 		FileManager.generateHTMLPage(s,path);
-		
 	}
 	
+	public static String getResult() {
+		return result;
+	}
 
 	private static String setFullPath(boolean extensionHTML) {
 		String defaultPath="results\\";
 		String defaultFile="Research result.html";
 		String path;
 		if(Newpath!=null) {
-			//System.out.println("newpath not null");
 			defaultPath=Newpath+"\\";
-			//FileManager.sendCSSstyle(defaultPath);
 		}
 		if(Newfilename!=null) {
 			if(extensionHTML) {
@@ -341,31 +275,16 @@ public class Searcher {
 			}else {
 				defaultFile=Newfilename+".txt";
 				System.out.println("sono arrivato a txt generator");
-			}
-			//System.out.println("newfilename not null");
-			
+			}	
 		}
-		
 		path = defaultPath+""+defaultFile;
 		return path;
 	}
-
+	
 	private static int calculatePoint(int valuePoints, int valuePointsInTitle) {
 		int result=(valuePoints*1)+(valuePointsInTitle*2);
 		return result;
 	}
-
-	/*
-	private static void writeFile(String path, String r) {
-		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-	        new FileOutputStream(path), "utf-8"))) {
-			writer.write(r);
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-		
-	}*/
 
 	private static void multipleSearchParam(String linkText) {
 		List<String> splice = TextDivider.textSplicing(searchTerm);
@@ -386,27 +305,13 @@ public class Searcher {
 	private static void singleSearchParam(String linkText) {
 		if(containsMainParam) {
 			if(linkText.toLowerCase().contains(searchTerm)) {
-				//System.out.println(linkText);
-				//System.out.println(" contiene la parola");
-				//System.out.println(" blocco 7 "+success2);
 				success2=true;
-				//research++;
 			}else {
-				//System.out.println(" blocco 7.5 "+success2);
-				//research++;
 			}
 		}else {
 			if(!linkText.toLowerCase().contains(searchTerm)) {
-				//System.out.println(linkText);
-				//System.out.println(" contiene la parola");
-				//System.out.println(" blocco 7.1.0 "+success2);
 				success2=true;
-				//research++;
-			}else {
-				//System.out.println(" blocco 7.5.1 "+success2);
-				//research++;
 			}
-			//System.out.println(" containsMainParam Search is set to "+containsMainParam);
 		}
 		
 	}
@@ -418,42 +323,20 @@ public class Searcher {
 			topResults=articlelist.size();
 		}
 		for(i=0;i<topResults;i++) {
+			System.out.println("i= "+i+" top result ="+topResults);
 			best.add(articlelist.get(i));
 		}
 		return best;
 	}
 	
-	private static void writeToFile(List<String> s) throws UnsupportedEncodingException, FileNotFoundException, IOException {
-		
+	/*private static void writeToFile(List<String> s) throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		String path=setFullPath(false);
-		/*
-		String defaultPath="";
-		String defaultFile="Research result.txt";
-		String path;
-		
-		if(Newpath!=null) {
-			//System.out.println("newpath not null");
-			defaultPath=Newpath+"\\";
-		}
-		if(Newfilename!=null) {
-			//System.out.println("newfilename not null");
-			defaultFile=Newfilename+".txt";
-		}
-		path=defaultPath+""+defaultFile;
-		*/
-		
-		
-		
-		
 		String r="";
 		for(String elem:s) {
 			r=r+elem+"\n";
 		}
-		
 		FileManager.writeOnFile(path, r);
-		//writeFile(path, r);
-		
-	}
+	}*/
 
 	private static List<String> printResults(List<Pair<String, Integer>> articlelist, List<Pair<String, List<String>>> articleWithKeyword, List<Pair<String, String>> articleWithTitle) {
 		List<String> result = new ArrayList<>();
@@ -481,18 +364,14 @@ public class Searcher {
 						}
 					}
 				}
-				
 			}
 		}
 		result.add("---------------------------------");
 		return result;
-		
 	}
 
 	private static void orderArticles(List<Pair<String, Integer>> articlelist) {
 		articlelist.sort((o1,o2) -> o2.getY().compareTo(o1.getY()));;
-	
-		
 	}
 
 	public static void SetPath(String path2) {
@@ -502,6 +381,22 @@ public class Searcher {
 	public static void setFilename(String filename2) {
 		Newfilename=filename2;
 	}
+
+	@Override
+	public void run() {
+		try {
+			this.search();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	
 	
 	
 }

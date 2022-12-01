@@ -8,7 +8,7 @@
 <Pane fx:id="SecondScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SecondScreenController">
    <children>
       <CheckBox fx:id="MainParamNOTinText" layoutX="50.0" layoutY="108.0" mnemonicParsing="false" text="Main Parameter NOT in text search ?" />
-      <CheckBox fx:id="SearchOnlyPDF" layoutX="50.0" layoutY="153.0" onMouseClicked="#enableDownloadPDF" mnemonicParsing="false" text="Searching only PDF ?" />
+      <CheckBox fx:id="SearchOnlyPDF" layoutX="50.0" layoutY="153.0" mnemonicParsing="false" onMouseClicked="#enableDownloadPDF" text="Searching only PDF ?" />
       <CheckBox fx:id="downloadPDF" disable="true" layoutX="50.0" layoutY="196.0" mnemonicParsing="false" text="Download PDF ?" />
       <Button fx:id="ExecuteButton" layoutX="685.0" layoutY="416.0" mnemonicParsing="false" onMouseClicked="#ExecuteButton" prefHeight="80.0" prefWidth="153.0" text="Execute">
          <font>
@@ -48,6 +48,7 @@
             <Font size="20.0" />
          </font>
       </Label>
+     <!-- <ProgressBar fx:id="ProgBar" layoutX="50.0" layoutY="539.0" prefHeight="27.0" prefWidth="513.0" progress="0.0" /> -->
   	 <!-- <Label fx:id="afterExecuteLabelForInfo" layoutX="50.0" layoutY="405.0" prefHeight="80.0" prefWidth="437.0" /> -->
    </children>
 </Pane>

@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<Pane fx:id="StartingScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartingMenuController">
+<Pane fx:id="StartingScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="649.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StartingMenuController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="101.0" layoutY="59.0" prefHeight="93.0" prefWidth="398.0" text="Simple Web Scraper">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="41.0" layoutY="59.0" prefHeight="93.0" prefWidth="398.0" text="Simple Web Scraper">
          <font>
             <Font size="36.0" />
          </font>
       </Label>
-      <Button id="SimpleScraper" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="211.0" onMouseClicked="#SimpleScraper" mnemonicParsing="false" prefHeight="48.0" prefWidth="252.0" text="Start Online Search" />
-      <Button id="SiteScraper" layoutX="47.0" layoutY="294.0" mnemonicParsing="false" prefHeight="48.0" onMouseClicked="#SiteScraper" prefWidth="252.0" text="Start Site Search" />
-      <Button id="closeScreen" layoutX="403.0" layoutY="294.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="120.0" onMouseClicked="#END" text="Exit" />
+      <Button id="SimpleScraper" alignment="CENTER" contentDisplay="CENTER" layoutX="47.0" layoutY="211.0" mnemonicParsing="false" onMouseClicked="#SimpleScraper" prefHeight="48.0" prefWidth="252.0" text="Start Online Search" />
+      <Button id="SiteScraper" layoutX="47.0" layoutY="294.0" mnemonicParsing="false" onMouseClicked="#SiteScraper" prefHeight="48.0" prefWidth="252.0" text="dblp.org Search" />
+      <Button id="closeScreen" layoutX="180.0" layoutY="536.0" mnemonicParsing="false" onMouseClicked="#END" prefHeight="48.0" prefWidth="120.0" text="Exit" />
+      <Button id="LoadAndModify" layoutX="47.0" layoutY="452.0" mnemonicParsing="false" onMouseClicked="#enableMidScreen" prefHeight="48.0" prefWidth="252.0" text="Load &amp; modify" />
+      <Pane fx:id="LoadAndModifyPane" disable="true" layoutX="481.0" layoutY="24.0" prefHeight="606.0" prefWidth="449.0" visible="false">
+         <children>
+            <TextArea fx:id="ShowTXTFileContent" prefHeight="520.0" prefWidth="449.0" />
+            <Button id="SaveAndOverwrite" layoutX="235.0" layoutY="558.0" mnemonicParsing="false" onMouseClicked="#Overwrite" prefHeight="48.0" prefWidth="216.0" text="Save And Overwrite" />
+            <Button id="generateHTMLPageVersion" layoutY="558.0" mnemonicParsing="false" onMouseClicked="#GenerateSimpleHTML" prefHeight="48.0" prefWidth="228.0" text="Generate HTML Version" />
+         </children>
+      </Pane>
+      <Button id="GoToCrossrefpageForm" layoutX="47.0" layoutY="373.0" mnemonicParsing="false" onMouseClicked="#ToCrossref" prefHeight="48.0" prefWidth="252.0" text="crossref.org" />
+      <Button id="SimpleApi" layoutX="47.0" layoutY="536.0" mnemonicParsing="false" onMouseClicked="#ToSimpleApi" prefHeight="48.0" prefWidth="120.0" text="Simple Api" />
    </children>
 </Pane>

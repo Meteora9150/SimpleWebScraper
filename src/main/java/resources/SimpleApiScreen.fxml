@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane fx:id="SimpleApiPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="949.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SimpleApiController">
+   <children>
+      <TextField fx:id="NumberOfSearches" layoutX="41.0" layoutY="180.0" onKeyReleased="#updateNumberSearch" prefHeight="39.0" prefWidth="251.0" promptText="number of articles to search ( 1 to 100 )" />
+      <TextField fx:id="MainArgumentOfSearch" layoutX="308.0" layoutY="180.0" onKeyReleased="#updateMainArg" prefHeight="39.0" prefWidth="601.0" promptText="main argument of the research" />
+      <TextField fx:id="RequestPreview" disable="true" editable="false" layoutX="41.0" layoutY="236.0" prefHeight="39.0" prefWidth="879.0" promptText="RequestPreview" />
+      <TextArea fx:id="ShowResult" editable="false" layoutX="41.0" layoutY="290.0" prefHeight="329.0" prefWidth="879.0" />
+      <Button fx:id="Execute" disable="true" layoutX="691.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#ExecuteAPI" prefHeight="66.0" prefWidth="218.0" text="Execute">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <HBox layoutX="41.0" layoutY="123.0" prefHeight="39.0" prefWidth="196.0">
+         <children>
+            <RadioButton id="RadioGet" mnemonicParsing="false" onMouseClicked="#updateOperation" prefHeight="56.0" prefWidth="91.0" text="Get">
+            <toggleGroup>
+                  <ToggleGroup fx:id="MainOperation" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton id="RadioSave" mnemonicParsing="false" onMouseClicked="#updateOperation" prefHeight="47.0" prefWidth="106.0" text="Save" toggleGroup="$MainOperation" />
+         </children>
+      </HBox>
+      <HBox layoutX="275.0" layoutY="123.0" prefHeight="39.0" prefWidth="367.0">
+         <children>
+            <RadioButton id="RadioSimple" mnemonicParsing="false" onMouseClicked="#updateSearch" prefHeight="55.0" prefWidth="140.0" text="Simple">
+            <toggleGroup>
+                  <ToggleGroup fx:id="TypeOfSearch" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton id="RadioDoiDB" mnemonicParsing="false" onMouseClicked="#updateSearch" prefHeight="39.0" prefWidth="133.0" text="doiDB" toggleGroup="$TypeOfSearch" />
+            <RadioButton id="RadioCrossref" mnemonicParsing="false" onMouseClicked="#updateSearch" prefHeight="56.0" prefWidth="165.0" text="Crossref" toggleGroup="$TypeOfSearch" />
+         </children>
+      </HBox>
+      <Label layoutX="81.0" layoutY="90.0" text="Select Method" />
+      <Label layoutX="384.0" layoutY="90.0" text="Select Type" />
+      <Button layoutX="691.0" layoutY="24.0" mnemonicParsing="false" onMouseClicked="#ReturnMainMenu" prefHeight="66.0" prefWidth="218.0" text="Return to main menu" />
+      <Label layoutX="41.0" layoutY="24.0" opacity="0.5" text="If &quot;Save&quot; option is chosen, you'll find a file named">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="51.0" opacity="0.5" prefHeight="28.0" prefWidth="413.0" text="&quot;API_SaveFile&quot; in your Download Directory">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

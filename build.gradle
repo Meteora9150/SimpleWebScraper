@@ -23,6 +23,7 @@ targetCompatibility = 1.8
 // Load repositories
 repositories {
     // jcenter()
+    gradlePluginPortal()
     mavenCentral()
 }
 
@@ -45,6 +46,20 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     implementation 'org.jsoup:jsoup:1.15.3'
+    
+    implementation 'org.seleniumhq.selenium:selenium:2.0b1'
+    
+    implementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.6.0'
+    
+    implementation 'org.openqa.selenium.core:selenium-core:1.0-20080914.225453'
+    
+    /*implementation "com.gradle.publish:plugin-publish-plugin:0.16.0"
+    implementation 'org.ajoberstar:gradle-git-publish:3.0.0'
+    implementation "com.github.node-gradle:gradle-node-plugin:3.1.1"*/
+    
+    //implementation 'com.palantir.gradle.shadow-jar:gradle-shadow-jar:2.5.0'
+    
+    //implementation 'org.openqa.selenium:selenium:0.8.1' // lui mi servirebbe sotto forma di jar ma non lo riesce a scaricare e quindi ho le librerie importate a mano
     
     //implementation 'org.apache.httpcomponents:httpclient:jar:4.5.13'
 	

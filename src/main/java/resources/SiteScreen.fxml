@@ -6,11 +6,14 @@
 
 <Pane fx:id="SiteScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="651.0" prefWidth="951.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SiteScraperController">
    <children>
+   	  <Button id="Return" layoutX="41.0" layoutY="507.0" mnemonicParsing="false" onMouseClicked="#ReturnToMenu" prefHeight="39.0" prefWidth="230.0" text="Return to main menu" />
       <Button id="ExecutebyArticle" layoutX="41.0" layoutY="557.0" mnemonicParsing="false" onMouseClicked="#RUNbyArticle" prefHeight="39.0" prefWidth="230.0" text="Execute by Article" />
       <Label layoutX="44.0" layoutY="160.0" text="Insert year" />
       <Label layoutX="44.0" layoutY="55.0" text="Insert Main research" />
+      <Label layoutX="44.0" layoutY="271.0" text="Insert number of results (max 1000)" />
       <TextField fx:id="ArticleYear" layoutX="44.0" layoutY="199.0" promptText="insert year" />
       <TextField fx:id="mainArgument" layoutX="44.0" layoutY="92.0" promptText="insert main argument" />
+      <TextField fx:id="NumberOfResults" layoutX="44.0" layoutY="300.0" promptText="insert number of results" />
       <TextArea fx:id="ResultShowcase" editable="false" layoutX="345.0" layoutY="51.0" prefHeight="497.0" prefWidth="576.0" promptText="Result showcase" />
       <Button id="SaveResult" layoutX="773.0" layoutY="568.0" mnemonicParsing="false" onMouseClicked="#SaveScreen" prefHeight="39.0" prefWidth="120.0" text="Save" />
       <TextField fx:id="SaveNameResults" layoutX="356.0" layoutY="568.0" prefHeight="39.0" prefWidth="387.0" promptText="Insert new save name file ( default: Results)" />

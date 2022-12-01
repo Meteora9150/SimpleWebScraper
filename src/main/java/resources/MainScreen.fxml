@@ -57,5 +57,6 @@
       <Button id="SaveAddParam" layoutX="842.0" layoutY="371.0" mnemonicParsing="false" onMouseClicked="#SaveAdditionalParams" prefHeight="39.0" prefWidth="79.0" text="Save" />
       <Button id="LoadAddParam" layoutX="842.0" layoutY="417.0" mnemonicParsing="false" onMouseClicked="#LoadAdditionalParams" prefHeight="39.0" prefWidth="79.0" text="Load" />
       <TextField fx:id="AddParamsNameFile" layoutX="539.0" layoutY="371.0" prefHeight="39.0" prefWidth="280.0" promptText="Name file for add params (extra)" />   
+      <Button id="ReturnToMainMenu" layoutX="747.0" layoutY="478.0" mnemonicParsing="false" onMouseClicked="#ReturnMainMenu" prefHeight="39.0" prefWidth="190.0" text="Return Main Menu" />   
    </children>
 </Pane>
