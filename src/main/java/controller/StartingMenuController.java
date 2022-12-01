@@ -83,6 +83,21 @@ public class StartingMenuController {
 	}
 	
 	@FXML
+	public void ToDoi2Bib(){
+		final Parent root;   
+		
+		try {
+			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/Doi2Bib.fxml"));
+			Scene secondLayout = new Scene(root, 950,650);
+			Stage secondaryStage = (Stage) StartingScreen.getScene().getWindow();	
+			secondaryStage.setScene(secondLayout);
+			secondaryStage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
 	public void END(){
 		System.exit(0);
 	}
