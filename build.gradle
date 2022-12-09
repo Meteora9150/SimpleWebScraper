@@ -1,6 +1,8 @@
 // Java library
 plugins { 
-    id 'java-library'
+    //id 'java-library'
+    id 'java'
+    id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 plugins {
@@ -86,7 +88,8 @@ dependencies {
 tasks.named('jar') {
     manifest {
         attributes('Implementation-Title': project.name,
-                   'Implementation-Version': project.version)
+                   'Implementation-Version': project.version,
+                    'Main-Class': 'application.Launcher')
     }
 }
 

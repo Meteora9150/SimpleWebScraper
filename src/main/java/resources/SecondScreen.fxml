@@ -7,19 +7,19 @@
 
 <Pane fx:id="SecondScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="601.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SecondScreenController">
    <children>
-      <CheckBox fx:id="MainParamNOTinText" layoutX="50.0" layoutY="108.0" mnemonicParsing="false" text="Main Parameter NOT in text search ?" />
-      <CheckBox fx:id="SearchOnlyPDF" layoutX="50.0" layoutY="153.0" mnemonicParsing="false" onMouseClicked="#enableDownloadPDF" text="Searching only PDF ?" />
-      <CheckBox fx:id="downloadPDF" disable="true" layoutX="50.0" layoutY="196.0" mnemonicParsing="false" text="Download PDF ?" />
-      <Button fx:id="ExecuteButton" layoutX="685.0" layoutY="416.0" mnemonicParsing="false" onMouseClicked="#ExecuteButton" prefHeight="80.0" prefWidth="153.0" text="Execute">
+      <CheckBox fx:id="MainParamNOTinText" layoutX="34.0" layoutY="100.0" mnemonicParsing="false" text="Main Parameter NOT in text search ?" />
+      <CheckBox fx:id="SearchOnlyPDF" layoutX="34.0" layoutY="145.0" mnemonicParsing="false" onMouseClicked="#enableDownloadPDF" text="Searching only PDF ?" />
+      <CheckBox fx:id="downloadPDF" disable="true" layoutX="34.0" layoutY="188.0" mnemonicParsing="false" text="Download PDF ?" />
+      <Button fx:id="ExecuteButton" layoutX="685.0" layoutY="397.0" mnemonicParsing="false" onMouseClicked="#ExecuteButton" prefHeight="80.0" prefWidth="153.0" text="Execute">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button id="BrowseForSaveFile" layoutX="478.0" layoutY="417.0" mnemonicParsing="false" onMouseClicked="#selectDirecory" text="Browse" />
-      <TextField fx:id="DirecorySaveFile" layoutX="47.0" layoutY="417.0" prefHeight="39.0" prefWidth="419.0" promptText="Select new Directory, Default is &quot; ./results&quot;" />
-      <TextField fx:id="RenameReultFile" layoutX="47.0" layoutY="478.0" prefHeight="39.0" prefWidth="377.0" promptText="Rename file, Default is &quot; Research Result &quot;" />
+      <Button id="BrowseForSaveFile" layoutX="557.0" layoutY="418.0" mnemonicParsing="false" onMouseClicked="#selectDirecory" text="Browse" />
+      <TextField fx:id="DirecorySaveFile" layoutX="31.0" layoutY="417.0" prefHeight="39.0" prefWidth="517.0" promptText="Select Directory, Default is &quot; ./Download/SimpleWeb../..Resultsesults &quot;" />
+      <TextField fx:id="RenameReultFile" layoutX="31.0" layoutY="477.0" prefHeight="39.0" prefWidth="450.0" promptText="Rename file, Default is &quot; Research Result &quot;" />
      
-     <HBox alignment="CENTER" layoutX="47.0" layoutY="303.0" prefHeight="39.0" prefWidth="534.0">
+     <HBox alignment="CENTER" layoutX="23.0" layoutY="310.0" prefHeight="39.0" prefWidth="534.0">
          <children>
             <RadioButton id="Radio1Chrome" mnemonicParsing="false" selected="true" text="Chrome   ">
                <toggleGroup>
@@ -31,19 +31,19 @@
             <RadioButton id="Radio4Scholar" mnemonicParsing="false" text="Google Scholar" toggleGroup="$Group1" />
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="31.0" layoutY="265.0" prefHeight="27.0" prefWidth="624.0" text="Select the main Browser for this research" />
-      <Label alignment="CENTER" layoutX="47.0" layoutY="69.0" prefHeight="27.0" prefWidth="313.0" text="Additional options for research" />
-      <Label layoutX="473.0" layoutY="69.0" prefHeight="111.0" prefWidth="363.0" text="WARNING: If all are selected then there could be no results in Result" wrapText="true">
+      <Label alignment="CENTER" layoutX="23.0" layoutY="274.0" prefHeight="27.0" prefWidth="534.0" text="Select the main Browser for this research" />
+      <Label alignment="CENTER" layoutX="31.0" layoutY="61.0" prefHeight="27.0" prefWidth="313.0" text="Additional options for research" />
+      <Label layoutX="447.0" layoutY="27.0" prefHeight="111.0" prefWidth="383.0" text="WARNING: If all checks are selected then there could be no results" wrapText="true">
          <font>
             <Font size="24.0" />
          </font></Label>
-      <Label alignment="CENTER" layoutX="47.0" layoutY="381.0" prefHeight="27.0" prefWidth="419.0" text="Save file Section" />
-      <Label layoutX="581.0" layoutY="490.0" opacity="0.63" prefHeight="111.0" prefWidth="313.0" text="After pressing &quot;Execute&quot; please wait it for ending" wrapText="true">
+      <Label alignment="CENTER" layoutX="31.0" layoutY="378.0" prefHeight="27.0" prefWidth="450.0" text="Save file Section" />
+      <Label layoutX="548.0" layoutY="477.0" opacity="0.63" prefHeight="111.0" prefWidth="313.0" text="After pressing &quot;Execute&quot; please wait it for ending" wrapText="true">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="439.0" layoutY="154.0" opacity="0.67" prefHeight="111.0" prefWidth="459.0" text="You can find the downloaded pdf in C:\\Download\SimpleWebScraperDownloadedPDF" wrapText="true">
+      <Label layoutX="385.0" layoutY="132.0" opacity="0.67" prefHeight="129.0" prefWidth="508.0" text="You can find the downloaded pdf in C:\\Download\SimpleWebScraperDB\DownloadedPDF Disclaimer: not all pdf can be automatically downloaded but the link is still avaiable in the Html version" wrapText="true">
          <font>
             <Font size="20.0" />
          </font>

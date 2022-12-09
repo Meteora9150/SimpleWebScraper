@@ -1,7 +1,9 @@
 package Utilities;
 
 public class NullValuedSearchParameters {
-
+	public static final String[] SimpleTagList = {"Title","Link","Points_Scored","Keyword_found"};
+	public static final String[] SiteTagList = {"Authors","Title","Pages","Year","Type","doi","URL"};
+	
 	public static final String[] vocals = {"a","e","i","o","u"};
 	public static final String[] consonant = {"q","w","r","t","y","p","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"};
 	public static final String[] junction = {"and","or","per","di","da","in","con","su","tra","fra"};

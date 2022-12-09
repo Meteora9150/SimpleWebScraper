@@ -1,7 +1,7 @@
 package controller;
 
 import java.io.IOException;
-
+import javax.swing.JOptionPane;
 import Utilities.FileManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -45,14 +45,21 @@ public class SiteScraperController {
 		String yeararticle = ArticleYear.getText();
 		String numberOfArticles= NumberOfResults.getText();
 		
+		
 		if(numberOfArticles.isEmpty()) {
 			numberOfArticles="20";
 		}
-		
-		SiteSearcher.executeResearchbyArticle(researchparam,yeararticle,numberOfArticles);
-		String result = SiteSearcher.getResult();
-		System.out.println(result);
-		updateShowcaseResult(result);
+		if(!researchparam.isEmpty()) {
+			SiteSearcher.executeResearchbyArticle(researchparam,yeararticle,numberOfArticles);
+			String result = SiteSearcher.getResult();
+					//System.out.println(result);
+			updateShowcaseResult(result);
+		}else {
+			// insert block alert 
+			String infoMessage = "Please enter a valid research param !!";
+			String titleBar = "Stop ! you violated the law";
+			JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE); 
+		}
 	}
 	
 	@FXML

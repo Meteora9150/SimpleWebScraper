@@ -127,6 +127,5 @@ public class StartingMenuController {
 	public void GenerateSimpleHTML(){
 		String result = ShowTXTFileContent.getText();
 		FileManager.generateGenericHTMLPage(result);
-		
 	}
 }

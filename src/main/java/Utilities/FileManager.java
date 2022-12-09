@@ -60,38 +60,6 @@ public class FileManager {
 		
 		return result;
 	}
-
-	public static String SimpleText(List<String> s) throws IOException {
-		String result="";
-		int counter=0;
-		int repetition=1;
-		for(String word:s) {
-			if(counter%5!=0) {
-			System.out.println(counter+" ) "+word);
-				switch(repetition) {
-					case 1:
-						result=result+word+"\n";
-						break;
-					case 2:
-						List<String> link=TextDivider.textSplicing(word);
-						result=result+link.get(link.size()-1)+"\n";
-						break;
-					case 3:
-						result=result+word+"\n";
-						break;
-					case 4:
-						result=result+word+"\n\n";
-						repetition = 0;
-						break;
-				}
-			repetition++;
-			}
-			counter++;
-			
-		}
-		return result;
-	}
-	
 	
 	public static void generateHTMLPage(List<String> s, String path) throws IOException {
 		String currentDir = System.getProperty("user.dir")+"/src/main/java/resources";
@@ -100,8 +68,8 @@ public class FileManager {
 		int counter=0;
 		int repetition=1;
 		for(String word:s) {
-			if(counter%5!=0) {
-			System.out.println(counter+" ) "+word);
+			if((counter+1)%5!=0) {
+			//System.out.println(counter+" ) "+word);
 				switch(repetition) {
 					case 1:
 						result=result+"<div>";
@@ -137,7 +105,6 @@ public class FileManager {
 		return path;
 	}
 
-	
 	public static void generateGenericHTMLPage(String result) {
 		String currentDir = System.getProperty("user.dir")+"/src/main/java/resources";
 		
@@ -170,6 +137,28 @@ public class FileManager {
 		String path=directory+"\\SimplePage.html";
 		writeOnFile(path, page);
 	}
+	
+	  public static void InitializeDirectories() {
+		String home = System.getProperty("user.home");
+		
+		String path = home+"\\Downloads\\SimpleWebScraperDB";
+		File theDir = new File(path);
+		if (!theDir.exists()){
+		    theDir.mkdirs();
+		}
+		
+		path = home+"\\Downloads\\SimpleWebScraperDB\\Simple";
+		theDir = new File(path);
+		if (!theDir.exists()){
+		    theDir.mkdirs();
+		}
+		
+		path = home+"\\Downloads\\SimpleWebScraperDB\\DoiDB";
+		theDir = new File(path);
+		if (!theDir.exists()){
+		    theDir.mkdirs();
+		}
+   }
 
 
 }

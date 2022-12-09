@@ -1,11 +1,13 @@
 package onlineSearcher;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
@@ -17,6 +19,7 @@ import Utilities.FileManager;
 import Utilities.NullValuedSearchParameters;
 import Utilities.Pair;
 import Utilities.ProgressUpdater;
+import Utilities.SimplePersonalDatabase;
 import Utilities.TextDivider;
 
 
@@ -43,24 +46,21 @@ public class Searcher implements Runnable {
 	static String Browser="";
 	private static String result;
 	private static int max;
+	private static boolean debug=false;
 	
 	public static void saveFirstBatch(String searchTerm, List<String> additionalParams, int research, int save) {
-		//System.out.println("Entrando in Save First Batch");
 		max = research;
 		SetSearchTerm(searchTerm);
 		SetadditionalParamsTerm(additionalParams);
 		SetresearchTerm(research);
 		SetsaveTerm(save);
-		//System.out.println("Uscendo da Save First Batch");
 	}
 	
 	public static void saveSecondBatch(boolean onlyPDFSearch, boolean NotInText, String UA, boolean getPDF) {
-		//System.out.println("Entrando in Save Second Batch");
 		SetOnlyPDFTerm(onlyPDFSearch);
 		SetscontainsParamTerm(NotInText);
 		SetUATerm(UA);
 		SetDownloadPDF(getPDF);
-		//System.out.println("Uscendo da Save Second Batch");
 	}
 
 	private static void SetDownloadPDF(boolean getPDF2) {
@@ -103,7 +103,6 @@ public class Searcher implements Runnable {
 		List<Pair<String,String>> articleWithTitle = new ArrayList<>();
 		
 		if(UA.contains("Chrome")){
-			System.out.println("1");
 			Browser="http://www.google.com/search?q="+searchTerm+"&num="+research+2;
 		}else if(UA.contains("Firefox")){
 			Browser="http://www.google.com/search?q="+searchTerm+"&num="+research+2;
@@ -125,30 +124,29 @@ public class Searcher implements Runnable {
 		int valuePoints=0;
 		int valuePointsInTitle=0;;
 		
-		// generic document scraper for test purposes saved in the project folder	
-		FileManager.writeOnFile("Document Scraping .txt", document.toString());
-				
+		if(debug) {
+		// generic document scraper for test purposes saved in the project folder
+		String home = System.getProperty("user.home");
+		FileManager.writeOnFile(home+"\\Downloads\\SimpleWebScraperDB\\Document Scraping.txt", document.toString());
+		}		
+		
 		for( Element elem:document.select("a")) {
-			
 			String linkHref = elem.attr("href"); // i vari link https://...
 			String linkText = elem.text(); // i titoli dei link https://...
-	
 			if(!linkHref.toLowerCase().contains("https") ||linkHref.toLowerCase().contains("amazon") ||  linkHref.toLowerCase().contains("search?q") ||  linkHref.toLowerCase().contains("youtube")) {
 				// ignore article
 			}
 			else {
-			if( (n>15) && research>0) {
-				
+			if( (n>15) && research>0) {	
 				success1=false;
-				success2=false;
+				success2=false;		
 				
-				//System.out.println("research value before decrementation ="+research);
 				research--;	
-				//System.out.println("research value after decrementation ="+research);
 					if(!onlyPDFSearch) {
 						success1=true;
 					}else {
-						if(linkText.toLowerCase().contains("pdf") || linkHref.toLowerCase().contains(".pdf")) {
+						if(linkHref.toLowerCase().contains(".pdf")) {
+						//if(linkText.toLowerCase().contains("pdf") || linkHref.toLowerCase().contains(".pdf")) {
 							success1=true;
 						}
 					}
@@ -164,12 +162,11 @@ public class Searcher implements Runnable {
 					}
 					
 					if(toCheck) {			
-						System.out.println("N= " + counter +" Text::   " + linkText + ",   URL::    " + linkHref);						
-						System.out.println("-----------[ link N^ " + counter + " ]---------------------");	
-
-						int value = ((counter*100)/max);
-						ProgressUpdater.updateBarr(value);
+						//System.out.println("N= " + counter +" Text::   " + linkText + ",   URL::    " + linkHref);						
+						//System.out.println("-----------[ link N^ " + counter + " ]---------------------");	
 						
+						int value = ((counter*100)/max);
+						ProgressUpdater.updateBarr(value);						
 						counter++;
 			
 							// replacer of strings //-----------------
@@ -189,7 +186,6 @@ public class Searcher implements Runnable {
 					        .get();
 				
 							String articleText = addon.select("p").text().toLowerCase();
-
 							for(String par:additionalParams) {
 								if(articleText.contains(par.toLowerCase())) {
 									wordsFound.add(par);
@@ -206,7 +202,6 @@ public class Searcher implements Runnable {
 					}
 					catch(SocketException ignored){
 						//ignore
-						//throw new SocketException("SocketException Occurred");
 					}
 					catch(HttpStatusException ignored){}
 					catch(Exception ignored){}
@@ -218,7 +213,7 @@ public class Searcher implements Runnable {
 					articleWithKeyword.add(new Pair<>(newLinkHref,wordsFound));
 					articleWithTitle.add(new Pair<>(newLinkHref,linkText));
 
-					System.out.println("------[ points scored = "+valuePoints+" Words Found = "+wordsFound+" ]-------------------");
+					//System.out.println("------[ points scored = "+valuePoints+" Words Found = "+wordsFound+" ]-------------------");
 					valuePoints=0;
 					valuePointsInTitle=0;
 					}				
@@ -231,30 +226,41 @@ public class Searcher implements Runnable {
 		List<String> s;
 		articlelist= selectTopN(articlelist,save);
 		
-		System.out.println("article list BEST = "+articlelist);
-		System.out.println("-----------");
-		
+		//System.out.println("article list BEST = "+articlelist);
+		//System.out.println("-----------");
+	
 		s=printResults(articlelist,articleWithKeyword,articleWithTitle);
-		//writeToFile(s); // crea un txt solo se il nome del file non è quello base
 		
-		result= FileManager.SimpleText(s);
+		String singleLine ="";
+		for(String a:s) {
+			singleLine+=a+"\n";
+		}		
+		List<Map<String,String>> var= TextDivider.convertToSimilJson(singleLine, NullValuedSearchParameters.SimpleTagList); // ok funziona
 		
-		System.out.println(" --------------------------- ");
+		String home = System.getProperty("user.home");	
+		String pathToSimpleDB = home+"\\Downloads\\SimpleWebScraperDB\\Simple";
+		SimplePersonalDatabase.InsertArticle(pathToSimpleDB,var,"Simple");
+		
+		//System.out.println(" --------------------------- ");
 		System.out.println(" THIS IS THE END !!");
 		
 		if(ProgressUpdater.isStillOn()) {
 			ProgressUpdater.closewindow();
 		}
 		
+		setResult(singleLine);
 		String path=setFullPath(true);
 		
 		if(getPDF) {
-			String home = System.getProperty("user.home");
-			String downloadPath=home+"\\Downloads\\SimpleWebScraperDownloadedPDF";
+			String downloadPath=home+"\\Downloads\\SimpleWebScraperDB\\DownloadedPDF";
 			FileDownloader.download(downloadPath,articlelist,articleWithTitle,articleWithKeyword);
 		}
 		
 		FileManager.generateHTMLPage(s,path);
+	}
+	
+	private static void setResult( String ris) {
+		result=ris;
 	}
 	
 	public static String getResult() {
@@ -262,7 +268,17 @@ public class Searcher implements Runnable {
 	}
 
 	private static String setFullPath(boolean extensionHTML) {
-		String defaultPath="results\\";
+		String defaultPath="";
+		if(debug) {
+			defaultPath="results\\";
+		}else {
+			String home = System.getProperty("user.home");
+			defaultPath=home+"\\Downloads\\SimpleWebScraperDB\\ResearchResult\\";
+			File theDir = new File(defaultPath);
+			if (!theDir.exists()){
+			    theDir.mkdirs();
+			}
+		}
 		String defaultFile="Research result.html";
 		String path;
 		if(Newpath!=null) {
@@ -271,10 +287,10 @@ public class Searcher implements Runnable {
 		if(Newfilename!=null) {
 			if(extensionHTML) {
 				defaultFile=Newfilename+".html";
-				System.out.println("sono arrivato a html generator");
+				//System.out.println("sono arrivato a html generator");
 			}else {
 				defaultFile=Newfilename+".txt";
-				System.out.println("sono arrivato a txt generator");
+				//System.out.println("sono arrivato a txt generator");
 			}	
 		}
 		path = defaultPath+""+defaultFile;
@@ -323,24 +339,14 @@ public class Searcher implements Runnable {
 			topResults=articlelist.size();
 		}
 		for(i=0;i<topResults;i++) {
-			System.out.println("i= "+i+" top result ="+topResults);
+			//System.out.println("i= "+i+" top result ="+topResults);
 			best.add(articlelist.get(i));
 		}
 		return best;
 	}
-	
-	/*private static void writeToFile(List<String> s) throws UnsupportedEncodingException, FileNotFoundException, IOException {
-		String path=setFullPath(false);
-		String r="";
-		for(String elem:s) {
-			r=r+elem+"\n";
-		}
-		FileManager.writeOnFile(path, r);
-	}*/
 
 	private static List<String> printResults(List<Pair<String, Integer>> articlelist, List<Pair<String, List<String>>> articleWithKeyword, List<Pair<String, String>> articleWithTitle) {
 		List<String> result = new ArrayList<>();
-		int Counter =1;
 		for(Pair<String, Integer> al:articlelist) {
 			String Link=al.getX();
 			String Title;
@@ -355,18 +361,16 @@ public class Searcher implements Runnable {
 						String Link3=awk.getX();
 						if(Link2.equals(Link3) && !result.contains(Link)) {
 							Keyword=awk.getY();
-							result.add("------------[ "+Counter+" ]---------------");
-							Counter++;
-							result.add(" Title: "+Title);
-							result.add(" Link: "+Link);
-							result.add(" Points Scored: "+Points);
-							result.add(" Keyword found: "+Keyword);
+							result.add(" Title "+Title);
+							result.add(" Link "+Link);
+							result.add(" Points_Scored "+Points);
+							result.add(" Keyword_found "+Keyword);
+							result.add("------------");
 						}
 					}
 				}
 			}
 		}
-		result.add("---------------------------------");
 		return result;
 	}
 
@@ -396,7 +400,4 @@ public class Searcher implements Runnable {
 		
 	}
 
-	
-	
-	
 }
