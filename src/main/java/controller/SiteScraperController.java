@@ -57,8 +57,12 @@ public class SiteScraperController {
 		}else {
 			// insert block alert 
 			String infoMessage = "Please enter a valid research param !!";
+<<<<<<< HEAD
 			//String titleBar = "Stop ! you violated the law";
 			String titleBar = "Error !!";
+=======
+			String titleBar = "Stop ! you violated the law";
+>>>>>>> 34e909e773934071389df648ad779b26c2b6231f
 			JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE); 
 		}
 	}

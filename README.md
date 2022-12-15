@@ -8,18 +8,9 @@ Features developed up until now:
 - Selectable amount of pages to analize 
 - Selectable amount of pages to save
 
-- Filter for finding only PDF related articles 
+- Filter for finding only PDF related articles ( to better develop )
 - Filter for finding articles NOT containing main param
-- Selectable separated directory and filename save location 
+- Selectable separated directory and filename save location ( default is inside the project result folder ) 
   
 - Results ordered by a point system
 - Generating a simple html local page version for consultation
-
-- Connection with dblp.org to search scientific articles
-- Search by specific year or not
-- Selectable amount of total articles to return
-- Save results
-
-- Connection with Crossref.org for identifying correlated articles
-
-- Simple editor of file where you can add your personal notes into the result files
