@@ -14,6 +14,8 @@ import java.util.List;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileSystemView;
 
+import org.checkerframework.common.reflection.qual.GetClass;
+
 
 public class FileManager {
 
@@ -60,48 +62,18 @@ public class FileManager {
 		
 		return result;
 	}
-
-	public static String SimpleText(List<String> s) throws IOException {
-		String result="";
-		int counter=0;
-		int repetition=1;
-		for(String word:s) {
-			if(counter%5!=0) {
-			System.out.println(counter+" ) "+word);
-				switch(repetition) {
-					case 1:
-						result=result+word+"\n";
-						break;
-					case 2:
-						List<String> link=TextDivider.textSplicing(word);
-						result=result+link.get(link.size()-1)+"\n";
-						break;
-					case 3:
-						result=result+word+"\n";
-						break;
-					case 4:
-						result=result+word+"\n\n";
-						repetition = 0;
-						break;
-				}
-			repetition++;
-			}
-			counter++;
-			
-		}
-		return result;
-	}
-	
 	
 	public static void generateHTMLPage(List<String> s, String path) throws IOException {
-		String currentDir = System.getProperty("user.dir")+"/src/main/java/resources";
-		String result="<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" href=\""+currentDir+"\\style.css\">\n</head>\n<body>\n"
-				+ "<img src=\""+currentDir+"\\leftBracket2.png\"><h1>Research \nResults</h1><img src=\""+currentDir+"\\rightBracket2.png\">\n";
+		//String currentDir = System.getProperty("user.dir")+"/src/main/java/resources";ù
+		String pathcss="style.css";
+		String cssStyle= FileManager.loadCSS(pathcss);
+		String result="<!DOCTYPE html>\n<html>\n<head>\n<style>\n"+cssStyle+"</style>\n</head>\n<body>\n"
+				+ "<h1>Research \nResults</h1>\n";
 		int counter=0;
 		int repetition=1;
 		for(String word:s) {
-			if(counter%5!=0) {
-			System.out.println(counter+" ) "+word);
+			if((counter+1)%5!=0) {
+			//System.out.println(counter+" ) "+word);
 				switch(repetition) {
 					case 1:
 						result=result+"<div>";
@@ -128,6 +100,10 @@ public class FileManager {
 		writeOnFile(path, result);
 	}
 
+	private static String loadCSS(String path) throws IOException {
+		return new String(FileManager.class.getClassLoader().getResourceAsStream(path).readAllBytes());
+	}
+
 	public static String selectSaveFile() {
 		JFileChooser f = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 		f.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); 
@@ -137,9 +113,8 @@ public class FileManager {
 		return path;
 	}
 
-	
 	public static void generateGenericHTMLPage(String result) {
-		String currentDir = System.getProperty("user.dir")+"/src/main/java/resources";
+		//String currentDir = System.getProperty("user.dir")+"/src/main/java/resources";
 		
 		List<String> mainWords= new ArrayList<>();
 		mainWords.add("Authors");
@@ -151,7 +126,15 @@ public class FileManager {
 		mainWords.add("URL");
 		mainWords.add("---------");
 		
-		String page="<!DOCTYPE html>\n<html>\n<head>\n<link rel=\"stylesheet\" href=\""+currentDir+"\\style2.css\">\n</head>\n<body>\n";
+		String pathcss="style2.css";
+		String cssStyle="";
+		try {
+			cssStyle= FileManager.loadCSS(pathcss);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String page="<!DOCTYPE html>\n<html>\n<head>\n<style>\n"+cssStyle+"</style>\n</head>\n<body>\n";
 		
 		result = result.replaceAll("Authors", "<div><h2>Authors</h2><p>");
 		result = result.replaceAll("Title", "</p><h3>Title</h3><p>");
@@ -170,6 +153,28 @@ public class FileManager {
 		String path=directory+"\\SimplePage.html";
 		writeOnFile(path, page);
 	}
+	
+	  public static void InitializeDirectories() {
+		String home = System.getProperty("user.home");
+		
+		String path = home+"\\Downloads\\SimpleWebScraperDB";
+		File theDir = new File(path);
+		if (!theDir.exists()){
+		    theDir.mkdirs();
+		}
+		
+		path = home+"\\Downloads\\SimpleWebScraperDB\\Simple";
+		theDir = new File(path);
+		if (!theDir.exists()){
+		    theDir.mkdirs();
+		}
+		
+		path = home+"\\Downloads\\SimpleWebScraperDB\\DoiDB";
+		theDir = new File(path);
+		if (!theDir.exists()){
+		    theDir.mkdirs();
+		}
+   }
 
 
 }

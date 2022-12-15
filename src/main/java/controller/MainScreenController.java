@@ -119,7 +119,7 @@ public class MainScreenController{
     	final Parent root;   
 
     	try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/SecondScreen.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/SecondScreen.fxml"));
 			Scene secondLayout = new Scene(root, 950, 650);
 			Stage secondaryStage = (Stage) mainScreen.getScene().getWindow();	
 			secondaryStage.setScene(secondLayout);
@@ -163,7 +163,7 @@ public class MainScreenController{
 		final Parent root;   
 
     	try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/StartingMenu.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/StartingMenu.fxml"));
 			Scene secondLayout = new Scene(root, 950, 650);
 			Stage secondaryStage = (Stage) mainScreen.getScene().getWindow();
 			secondaryStage.setScene(secondLayout);

@@ -121,7 +121,6 @@ public class SimpleApiController {
 				e.printStackTrace();
 			}
 			result=Searcher.getResult();
-			
 			break;
 		case "Crossref":
 			CrosRefSearcher.search(MainArg);
@@ -132,9 +131,9 @@ public class SimpleApiController {
 		ShowResult.setText(result);
 		
 		if(Operation.equals("Save")) {
-			System.out.println("SONO DENTRO SAVE");
+			//System.out.println("SONO DENTRO SAVE");
 			String home = System.getProperty("user.home");
-			String downloadPath=home+"\\Downloads\\API_SaveFile.txt";
+			String downloadPath=home+"\\Downloads\\SimpleWebScraperDB\\API_SaveFile.txt";
 			FileManager.writeOnFile(downloadPath, result);
 		}
 	}
@@ -157,7 +156,7 @@ public class SimpleApiController {
 		final Parent root;   
 
     	try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/StartingMenu.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/StartingMenu.fxml"));
 			Scene secondLayout = new Scene(root, 950, 650);
 			Stage secondaryStage = (Stage) SimpleApiPane.getScene().getWindow();	
 			secondaryStage.setScene(secondLayout);

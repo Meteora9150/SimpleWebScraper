@@ -21,9 +21,6 @@ public class FileDownloader {
 		int n=1;
 		//System.out.println("oh funziona?");
 		for( Pair<String, String> pdf:onlyPDF) {
-			
-			System.out.println("trovato link "+pdf.getX());
-		
 			int maxlength= pdf.getY().length();
 			int allowedLength=0;
 			if(maxlength<=40) {
@@ -31,14 +28,11 @@ public class FileDownloader {
 			}else {
 				allowedLength=40;
 			}
-			
-			String title=pdf.getY().substring(0, allowedLength);;
-			
+			String title=pdf.getY().substring(0, allowedLength);;		
 			try {
 			InputStream fileIn;
 			FileOutputStream fileOut;
 			URL url= new URL(pdf.getX());
-			
 			
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			fileIn = conn.getInputStream();
@@ -58,7 +52,7 @@ public class FileDownloader {
 			}
 		}
 	}
-
+	
 	private static List<Pair<String, String>> extractPDF(List<Pair<String, Integer>> articlelist, List<Pair<String, String>> articleWithTitle, List<Pair<String, List<String>>> articleWithKeyword ) {
 		
 		List<Pair<String,String>> foundPDF = new ArrayList<>();

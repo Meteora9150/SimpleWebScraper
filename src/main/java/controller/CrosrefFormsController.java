@@ -28,7 +28,7 @@ public class CrosrefFormsController {
 		final Parent root;   
 
     	try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/StartingMenu.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/StartingMenu.fxml"));
 			Scene secondLayout = new Scene(root, 950, 650);
 			Stage secondaryStage = (Stage) CrosrefFormsPane.getScene().getWindow();
 				

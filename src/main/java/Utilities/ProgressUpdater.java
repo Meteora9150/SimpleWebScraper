@@ -7,8 +7,7 @@ import javax.swing.JProgressBar;
 import javax.swing.JRootPane;
 
 public class ProgressUpdater implements Runnable {
-
-	//boolean end=false;
+	
 	static JFrame f= new JFrame("Please wait while it ends");
 	static JProgressBar barr;
 	static boolean active=false;

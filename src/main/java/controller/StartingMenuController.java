@@ -27,7 +27,7 @@ public class StartingMenuController {
 	public void SimpleScraper(){
 		final Parent root; 
 		try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/MainScreen.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
 			Scene secondLayout = new Scene(root, 950,650);
 			Stage secondaryStage = (Stage) StartingScreen.getScene().getWindow();	
 			secondaryStage.setScene(secondLayout);
@@ -42,7 +42,7 @@ public class StartingMenuController {
 		final Parent root;   
 		
 		try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/SiteScreen.fxml"));	
+			root = FXMLLoader.load(getClass().getResource("/SiteScreen.fxml"));	
 			Scene secondLayout = new Scene(root, 950,650);
 			Stage secondaryStage = (Stage) StartingScreen.getScene().getWindow();	
 			secondaryStage.setScene(secondLayout);
@@ -57,7 +57,7 @@ public class StartingMenuController {
 		final Parent root;   
 		
 		try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/CrosrefForms.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/CrosrefForms.fxml"));
 			Scene secondLayout = new Scene(root, 950,650);
 			Stage secondaryStage = (Stage) StartingScreen.getScene().getWindow();
 			secondaryStage.setScene(secondLayout);
@@ -72,7 +72,7 @@ public class StartingMenuController {
 		final Parent root;   
 		
 		try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/SimpleApiScreen.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/SimpleApiScreen.fxml"));
 			Scene secondLayout = new Scene(root, 950,650);
 			Stage secondaryStage = (Stage) StartingScreen.getScene().getWindow();	
 			secondaryStage.setScene(secondLayout);
@@ -87,7 +87,7 @@ public class StartingMenuController {
 		final Parent root;   
 		
 		try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/Doi2Bib.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/Doi2Bib.fxml"));
 			Scene secondLayout = new Scene(root, 950,650);
 			Stage secondaryStage = (Stage) StartingScreen.getScene().getWindow();	
 			secondaryStage.setScene(secondLayout);
@@ -127,6 +127,5 @@ public class StartingMenuController {
 	public void GenerateSimpleHTML(){
 		String result = ShowTXTFileContent.getText();
 		FileManager.generateGenericHTMLPage(result);
-		
 	}
 }

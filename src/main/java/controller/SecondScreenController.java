@@ -124,7 +124,7 @@ public class SecondScreenController {
 	
 		final Parent root;   
 		try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/MainScreen.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/MainScreen.fxml"));
 			Scene secondLayout = new Scene(root,950,650);
 			Stage secondaryStage = (Stage) SecondScreen.getScene().getWindow();	
 			secondaryStage.setScene(secondLayout);

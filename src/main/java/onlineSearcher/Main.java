@@ -11,10 +11,8 @@ public class Main extends Application {
 
 	public void start(Stage primaryStage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/resources/StartingMenu.fxml"));
-			//BorderPane root = new BorderPane();
+			Parent root = FXMLLoader.load(getClass().getResource("/StartingMenu.fxml"));
 			Scene scene = new Scene(root,950,650);
-//			scene.getStylesheets().add(getClass().getResource().toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.show();
