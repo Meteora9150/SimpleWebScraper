@@ -94,10 +94,8 @@ public class SimplePersonalDatabase {
 		for(Map<String, String> article:var) {
 			toAdd=true;
 			for(Map<String, String> exItem:existingDB) {
-				if(exItem.get("Title").contains(article.get("Title"))) {
+				if(exItem.get("Title").contains(article.get("Title")) || exItem.get("Link").contains(article.get("Link"))) {
 					toAdd=false;
-					
-					
 					
 					String key1=exItem.get("Keyword_found");
 					String key2=article.get("Keyword_found");
@@ -139,7 +137,8 @@ public class SimplePersonalDatabase {
 						}
 						result=result.substring(1, result.length()-1);
 						System.out.println("result ="+result);
-						modifiedTitles.add(article.get("Title"));
+						//modifiedTitles.add(article.get("Title"));
+						modifiedTitles.add(article.get("Link"));
 						modifiedKeyword.add(result);
 					}
 					
@@ -185,7 +184,7 @@ public class SimplePersonalDatabase {
 			
 			
 			
-			if(modifiedTitles.contains(Title)) {
+			if(modifiedTitles.contains(Link)) {
 				int i=0;
 				int end=0;
 				for(i=0;i<modifiedTitles.size();i++) {
